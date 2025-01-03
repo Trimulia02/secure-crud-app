@@ -19,7 +19,10 @@ jobs:
         with:
           python-version: 3.9
       - name: Install dependencies
-        run: pip install -r requirements.txt
+        run: |
+          pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install pytest bandit  # Install pytest and bandit explicitly
 
   test:
     runs-on: ubuntu-latest
@@ -32,9 +35,9 @@ jobs:
         with:
           python-version: 3.9
       - name: Install dependencies
-        run: pip install -r requirements.txt
-      - name: Run tests
-        run: python -m unittest test_app.py
+        run: pip install -r requirements.txt  # Ensure all dependencies are installed
+      - name: Run tests with pytest
+        run: pytest  # Using pytest instead of unittest
 
   sast:
     runs-on: ubuntu-latest
@@ -72,7 +75,8 @@ jobs:
           sudo chmod +x /usr/local/bin/docker-compose
 
       - name: Start Docker Compose
-        run: docker-compose up -d
+        run: |
+          docker-compose up -d
 
       - name: Wait for Application
         run: |
@@ -115,6 +119,6 @@ jobs:
         with:
           name: ZAP Report
           path: zap_report.html
-
+     
       - name: Stop Docker Compose
         run: docker-compose down
