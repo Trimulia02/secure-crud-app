@@ -49,10 +49,10 @@ jobs:
         uses: actions/setup-python@v4
         with:
           python-version: 3.9
-      - name: Install Bandit
-        run: pip install bandit
-      - name: Run Bandit Security Scan
-        run: bandit -r . -f html -o bandit-report.html
+      - name: Install Bandit and dependencies
+        run: pip install bandit  # Install Bandit explicitly
+      - name: Run Bandit Security Scan (with fail-level set to low)
+        run: bandit -r . -f html -o bandit-report.html --fail-level low -v  # Added verbose mode
       - name: Upload Bandit Report
         uses: actions/upload-artifact@v3
         with:
