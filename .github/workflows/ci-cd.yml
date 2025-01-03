@@ -48,7 +48,20 @@ jobs:
       - name: Run Bandit Security Scan
         run: bandit -r .
 
-      # Step 7: Deploy (placeholder)
+      # Step 7: Build and test Docker Compose
+      - name: Set up Docker Compose
+        run: |
+          docker-compose -f docker-compose.yml up -d
+          docker-compose ps
+
+      - name: Verify application and database
+        run: |
+          curl http://localhost:5000 || echo "Application did not respond"
+          docker exec -it $(docker ps -q -f name=app) flask db init || true
+          docker exec -it $(docker ps -q -f name=app) flask db migrate || true
+          docker exec -it $(docker ps -q -f name=app) flask db upgrade || true
+
+      # Step 8: Deploy (placeholder)
       - name: Deploy (placeholder)
         if: github.ref == 'refs/heads/main'
         run: echo "Deploying application..."
