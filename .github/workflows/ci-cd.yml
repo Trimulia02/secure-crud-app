@@ -22,7 +22,7 @@ jobs:
         run: |
           pip install --upgrade pip
           pip install -r requirements.txt
-          pip install pytest bandit  # Install pytest and bandit explicitly
+          pip install pytest bandit  # Ensure pytest and bandit are installed
 
   test:
     runs-on: ubuntu-latest
@@ -35,9 +35,9 @@ jobs:
         with:
           python-version: 3.9
       - name: Install dependencies
-        run: pip install -r requirements.txt  # Ensure all dependencies are installed
+        run: pip install -r requirements.txt  # Install all dependencies
       - name: Run tests with pytest
-        run: pytest  # Using pytest instead of unittest
+        run: pytest  # Run tests using pytest
 
   sast:
     runs-on: ubuntu-latest
@@ -50,9 +50,9 @@ jobs:
         with:
           python-version: 3.9
       - name: Install Bandit and dependencies
-        run: pip install bandit  # Install Bandit explicitly
-      - name: Run Bandit Security Scan (with fail-level set to low)
-        run: bandit -r . -f html -o bandit-report.html --fail-level low -v  # Added verbose mode
+        run: pip install bandit  # Ensure Bandit is installed
+      - name: Run Bandit Security Scan
+        run: bandit -r . -f html -o bandit-report.html --severity-level low -v  # Run Bandit with fixed arguments
       - name: Upload Bandit Report
         uses: actions/upload-artifact@v3
         with:
