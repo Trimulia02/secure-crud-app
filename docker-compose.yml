@@ -2,23 +2,23 @@ version: "3.8"
 
 services:
   app:
-    image: flask-app:latest
     build:
-      context: .  # This should be the current directory
-      dockerfile: Dockerfile  # Dockerfile name, case-sensitive
+      context: .  # Build the app using the current directory
+      dockerfile: Dockerfile  # Use the Dockerfile for building
+    image: flask-app:latest  # Tag the built image with a name
     ports:
-      - "5000:5000"
+      - "5000:5000"  # Map the container port to host port
     depends_on:
-      - db
+      - db  # Ensure db starts before the app
     environment:
-      - FLASK_APP=app.py
-      - FLASK_ENV=development
+      - FLASK_APP=app.py  # Set the FLASK_APP environment variable
+      - FLASK_ENV=development  # Set Flask environment for development
 
   db:
-    image: postgres:13
+    image: postgres:13  # Use the official postgres image
     environment:
-      POSTGRES_USER: flaskuser
-      POSTGRES_PASSWORD: flaskpassword
-      POSTGRES_DB: flaskdb
+      POSTGRES_USER: flaskuser  # PostgreSQL user
+      POSTGRES_PASSWORD: flaskpassword  # PostgreSQL password
+      POSTGRES_DB: flaskdb  # Database name
     ports:
-      - "5432:5432"
+      - "5432:5432"  # Expose Postgres port
