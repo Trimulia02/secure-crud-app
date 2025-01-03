@@ -4,8 +4,8 @@ services:
   app:
     image: flask-app:latest
     build:
-      context: .
-      dockerfile: Dockerfile
+      context: .  # This specifies the current directory as the build context
+      dockerfile: Dockerfile  # Ensure Dockerfile is named correctly
     ports:
       - "5000:5000"
     depends_on:
