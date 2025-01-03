@@ -3,19 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edit Data</title>
+    <title>Edit Entry</title>
 </head>
 <body>
-    <h1>Edit Data</h1>
+    <h1>Edit Entry</h1>
     <form method="POST">
         <label for="name">Name:</label>
-        <input type="text" id="name" name="name" value="{{ item.name }}" required>
+        <input type="text" name="name" value="{{ item.name }}" required>
         <br>
         <label for="email">Email:</label>
-        <input type="email" id="email" name="email" value="{{ item.email }}" required>
+        <input type="email" name="email" value="{{ item.email }}" required>
         <br>
-        <button type="submit">Update</button>
+        <input type="submit" value="Update">
     </form>
-    <a href="/">Back</a>
+    <a href="/">Back to List</a>
 </body>
 </html>
